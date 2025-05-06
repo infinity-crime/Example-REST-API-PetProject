@@ -4,14 +4,13 @@
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0.0-%23512BD4)](https://learn.microsoft.com/en-us/aspnet/core/)
 [![Swagger](https://img.shields.io/badge/Swagger-6.5.0-%2385EA2D)](https://swagger.io/)
 
-REST API implementation for managing animal shelter operations, built with .NET 9 Minimal APIs. Part of a C# developer learning roadmap project.
+A REST API implementation for managing animal zoo operations, built using .NET 9 Minimal APIs. This project was made according to the ready-made requirements of a developer from YouTube
 
-
-![image](https://github.com/user-attachments/assets/c6a752df-b398-4c36-bdea-5ed8a9f1a864)
-
-## Pet-Project
+## Requirements 📖
 ![image](https://github.com/user-attachments/assets/48539c81-8d53-404a-8de1-e34ef4226ca2)
 
+## Screenshot from Swagger UI
+![image](https://github.com/user-attachments/assets/c6a752df-b398-4c36-bdea-5ed8a9f1a864)
 
 ## 🌟 Features
 
