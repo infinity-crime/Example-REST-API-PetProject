@@ -21,10 +21,10 @@ else
     app.UseExceptionHandler("/Errors");
 }
 
-// получение списка всех животных
+// get a dictionary of all animals
 app.MapGet("/api/animals", (IAnimalService service) => Results.Ok(service.GetAllAnimals()));
 
-// получение информации о конкретном животном
+// get information about a specific animal
 app.MapGet("/api/animals/{id}", (string id, IAnimalService service) =>
 {
     var animal = service.GetAnimalById(id);
@@ -34,7 +34,7 @@ app.MapGet("/api/animals/{id}", (string id, IAnimalService service) =>
 
 }).AddEndpointFilter(ValidationHelper.ValidateId);
 
-// добавление животного в словарь по id
+// adding an animal to the dictionary by id
 app.MapPost("/api/animals/{id}", (string id, [FromBody] Animal animal, IAnimalService service) =>
 {
     return service.AddAnimal(id, animal)
@@ -45,9 +45,9 @@ app.MapPost("/api/animals/{id}", (string id, [FromBody] Animal animal, IAnimalSe
     });
 
 }).AddEndpointFilter(ValidationHelper.ValidateId)
-  .WithParameterValidation(); // Использование библиотеки MinimalApis.Extensions (NuGet) - фильтр по атрибутам
+  .WithParameterValidation(); // Using MinimalApis.Extensions library (NuGet) - filter by attributes
 
-// кормление выбранного по id животного
+// feeding of the animal selected by id
 app.MapPost("/api/animals/{id}/feed", (string id, [FromBody] FeedDto feedDto, IAnimalService service) =>
 {
     return service.FeedAnimal(id, feedDto.FeedAmount)
@@ -55,9 +55,9 @@ app.MapPost("/api/animals/{id}/feed", (string id, [FromBody] FeedDto feedDto, IA
     : Results.Problem(statusCode: 404);
 
 }).AddEndpointFilter(ValidationHelper.ValidateId)
-  .WithParameterValidation(); // Использование библиотеки MinimalApis.Extensions (NuGet) - фильтр по атрибутам
+  .WithParameterValidation();
 
-// удаление животного
+// removal of the animal
 app.MapDelete("/api/animals/{id}", (string id, IAnimalService service) =>
 {
     return service.DeleteAnimal(id)
