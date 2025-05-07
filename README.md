@@ -33,12 +33,11 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 
 | Method | Endpoint                  | Description                |
 |--------|---------------------------|----------------------------|
-| `GET`  | `/api/animals`            | Get all animals            |
-| `GET`  | `/api/animals/{id}`       | Get specific animal        |
-| `POST` | `/api/animals`            | Add new animal             |
-| `PUT`  | `/api/animals/{id}`       | Update animal details      |
-| `DELETE` | `/api/animals/{id}`     | Remove animal              |
-| `POST` | `/api/animals/{id}/feed`  | Feed an animal             |
+| `GET`  | `/api/animals`            | get a dictionary of all animals            |
+| `GET`  | `/api/animals/{id}`       | get information about a specific animal        |
+| `POST` | `/api/animals/{id}`            | adding an animal to the dictionary by id             |
+| `PUT`  | `/api/animals/{id}/feed`       | feeding of the animal selected by id      |
+| `DELETE` | `/api/animals/{id}`     | removal of the animal              |
 
 ## 🛠️ Technical Stack
 
@@ -50,9 +49,8 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 ### Key Packages
 | Package                       | Version   | Purpose                          |
 |-------------------------------|-----------|----------------------------------|
-| `MinimalApis.Extensions`      | 1.0.0     | Enhanced validation & routing    |
-| `Swashbuckle.AspNetCore`      | 6.5.0     | OpenAPI documentation            |
-| `Hellang.Middleware.ProblemDetails` | 6.0.0 | Standardized error responses     |
+| `MinimalApis.Extensions`      | 0.11.0     | Enhanced validation & routing    |
+| `Swashbuckle.AspNetCore`      | 8.1.1     | OpenAPI documentation            |
 
 ## 📖 Documentation
 
@@ -65,7 +63,7 @@ http://localhost:5000/swagger
 
 ### Prerequisites
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- Your favorite IDE (VS 2022, Rider, or VS Code)
+- IDE (VS 2022, Rider, or VS Code)
 
 ### Installation
 ```bash
