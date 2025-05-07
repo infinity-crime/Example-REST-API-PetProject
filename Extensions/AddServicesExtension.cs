@@ -14,7 +14,15 @@ namespace RestApiAnimals.Extensions
             // as it does not initially see the mandatory SpeciesType field
             services.AddSwaggerGen(o =>
             {
+                o.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Zoo management",
+                    Description = "This API is created to manage animal data in the zoo",
+                    Version = "1.0"
+                });
+
                 o.UseOneOfForPolymorphism();
+
                 o.SelectDiscriminatorNameUsing(type => type.Name switch
                 {
                     nameof(Animal) => "SpeciesType",

@@ -22,7 +22,7 @@ else
 }
 
 // get a dictionary of all animals
-app.MapGet("/api/animals", (IAnimalService service) => Results.Ok(service.GetAllAnimals()));
+app.MapGet("/api/animals", (IAnimalService service) => Results.Ok(service.GetAllAnimals())).WithTags("Animals GET");
 
 // get information about a specific animal
 app.MapGet("/api/animals/{id}", (string id, IAnimalService service) =>
@@ -32,7 +32,8 @@ app.MapGet("/api/animals/{id}", (string id, IAnimalService service) =>
     ? TypedResults.Ok(animal)
     : Results.Problem(statusCode: 404);
 
-}).AddEndpointFilter(ValidationHelper.ValidateId);
+}).AddEndpointFilter(ValidationHelper.ValidateId)
+  .WithTags("Animals GET");
 
 // adding an animal to the dictionary by id
 app.MapPost("/api/animals/{id}", (string id, [FromBody] Animal animal, IAnimalService service) =>
@@ -41,21 +42,23 @@ app.MapPost("/api/animals/{id}", (string id, [FromBody] Animal animal, IAnimalSe
     ? TypedResults.Created($"/api/animals/{id}", animal)
     : Results.ValidationProblem(new Dictionary<string, string[]>
     {
-        {"id", new string[] {"Animal with this id is already exists" } } 
+        {"id", new[] {"Animal with this id is already exists" } }
     });
 
 }).AddEndpointFilter(ValidationHelper.ValidateId)
-  .WithParameterValidation(); // Using MinimalApis.Extensions library (NuGet) - filter by attributes
+  .WithParameterValidation() // Using MinimalApis.Extensions library (NuGet) - filter by attributes
+  .WithTags("Animals POST");
 
 // feeding of the animal selected by id
-app.MapPost("/api/animals/{id}/feed", (string id, [FromBody] FeedDto feedDto, IAnimalService service) =>
+app.MapPut("/api/animals/{id}/feed", (string id, [FromBody] FeedDto feedDto, IAnimalService service) =>
 {
     return service.FeedAnimal(id, feedDto.FeedAmount)
     ? TypedResults.Ok()
     : Results.Problem(statusCode: 404);
 
 }).AddEndpointFilter(ValidationHelper.ValidateId)
-  .WithParameterValidation();
+  .WithParameterValidation()
+  .WithTags("Animals PUT");
 
 // removal of the animal
 app.MapDelete("/api/animals/{id}", (string id, IAnimalService service) =>
@@ -64,6 +67,7 @@ app.MapDelete("/api/animals/{id}", (string id, IAnimalService service) =>
     ? TypedResults.NoContent()
     : Results.Problem(statusCode: 404);
 
-}).AddEndpointFilter(ValidationHelper.ValidateId);
+}).AddEndpointFilter(ValidationHelper.ValidateId)
+  .WithTags("Animals DELETE");
 
 app.Run();
