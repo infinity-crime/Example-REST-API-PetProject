@@ -1,14 +1,15 @@
-﻿using RestApiAnimals.Models;
+﻿using RestApiAnimals.Domain;
 using System.Collections;
+using RestApiAnimals.DTOs;
 
 namespace RestApiAnimals.ServiceLayer
 {
     public interface IAnimalService
     {
-        IAnimal? GetAnimalById(string id);
-        IDictionary GetAllAnimals();
-        bool AddAnimal(string id, IAnimal animal);
-        bool FeedAnimal(string id, int feedAmount);
-        bool DeleteAnimal(string id);
+        Task<Animal?> GetAnimalByIdAsync(string id);
+        Task<ICollection> GetAllAnimalsAsync();
+        Task<bool> AddAnimalAsync(AnimalDto animal);
+        Task<bool> FeedAnimalAsync(string id, int feedAmount);
+        Task<bool> DeleteAnimalAsync(string id);
     }
 }

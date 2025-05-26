@@ -1,23 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace RestApiAnimals.Models
+namespace RestApiAnimals.Domain
 {
-    [JsonPolymorphic(TypeDiscriminatorPropertyName = "SpeciesType")]
-    [JsonDerivedType(typeof(Lion), "lion")]
-    [JsonDerivedType(typeof(Penguin), "penguin")]
-    [JsonDerivedType(typeof(Elephant), "elephant")]
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "Species")]
+    [JsonDerivedType(typeof(Lion), "Lion")]
+    [JsonDerivedType(typeof(Elephant), "Elephant")]
+    [JsonDerivedType(typeof(Penguin), "Penguin")]
     public class Animal : IAnimal
     {
-        [Required]
-        [MaxLength(50)]
-        [Display(Name = "Name")]
         public string? Name { get; set; }
 
         [JsonIgnore]
         public string? Species { get; set; }
 
-        public int Energy { get; private set; }
+        public int Energy { get; set; }
 
         public Animal(string species)
         {

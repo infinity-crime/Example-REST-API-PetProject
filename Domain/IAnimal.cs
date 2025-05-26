@@ -1,4 +1,4 @@
-﻿namespace RestApiAnimals.Models
+﻿namespace RestApiAnimals.Domain
 {
     public interface IAnimal
     {

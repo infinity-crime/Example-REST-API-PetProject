@@ -1,4 +1,4 @@
-﻿namespace RestApiAnimals.Models
+﻿namespace RestApiAnimals.Domain
 {
     public class Penguin : Animal
     {
@@ -11,6 +11,7 @@
         public override void PlaySound()
         {
             Console.WriteLine("Honk! Honk! Honk!");
+            --Energy;
         }
     }
 }

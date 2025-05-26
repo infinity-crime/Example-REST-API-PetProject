@@ -1,6 +1,9 @@
-﻿using RestApiAnimals.Models;
+﻿using Microsoft.AspNetCore.Http.Json;
+using RestApiAnimals.Domain;
+using RestApiAnimals.DTOs;
 using RestApiAnimals.ServiceLayer;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization.Metadata;
 
 namespace RestApiAnimals.Extensions
 {
@@ -18,19 +21,18 @@ namespace RestApiAnimals.Extensions
                 {
                     Title = "Zoo management",
                     Description = "This API is created to manage animal data in the zoo",
-                    Version = "1.0"
+                    Version = "2.0"
                 });
 
                 o.UseOneOfForPolymorphism();
 
                 o.SelectDiscriminatorNameUsing(type => type.Name switch
                 {
-                    nameof(Animal) => "SpeciesType",
+                    nameof(AnimalDto) => "Species",
                     _ => null
                 });
             });
 
-            // The service is registered as Scoped due to project requirements
             services.AddScoped<IAnimalService, AnimalService>();
 
             return services;

@@ -1,41 +1,101 @@
-﻿using RestApiAnimals.Models;
+﻿using RestApiAnimals.Domain;
+using RestApiAnimals.DTOs;
 using System.Collections;
 using System.Collections.Concurrent;
+using RestApiAnimals.Converters;
+using System.Runtime.CompilerServices;
+using RestApiAnimals.DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestApiAnimals.ServiceLayer
 {
     public class AnimalService : IAnimalService
     {
-        private static ConcurrentDictionary<string, IAnimal> _animals = new();
-        public bool AddAnimal(string id, IAnimal animal)
+        private readonly AppDbContext _appDbContext;
+
+        public AnimalService(AppDbContext appDbContext)
         {
-            return _animals.TryAdd(id, animal);
+            _appDbContext = appDbContext;
         }
 
-        public bool DeleteAnimal(string id)
+        public async Task<bool> AddAnimalAsync(AnimalDto animal)
         {
-            return _animals.TryRemove(id, out _);
-        }
-
-        public bool FeedAnimal(string id, int feedAmount)
-        {
-            _animals.TryGetValue(id, out IAnimal? animal);
-            if (animal is null)
+            var animalEntity = Converter.MapDtoToEntity(animal);
+            if (animalEntity == null)
                 return false;
 
-            animal.TakeFood(feedAmount);
+            await _appDbContext.AddAsync(animalEntity);
+            await _appDbContext.SaveChangesAsync();
             return true;
         }
 
-        public IDictionary GetAllAnimals()
+        public async Task<bool> DeleteAnimalAsync(string id)
         {
-            return _animals;
+            if(int.TryParse(id, out int animalId))
+            {
+                var animal = await _appDbContext.Animals
+                    .FirstOrDefaultAsync(a => a.Id == animalId);
+                if (animal != null)
+                {
+                    _appDbContext.Animals.Remove(animal);
+                    await _appDbContext.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
+            }
+            
+            return false;
         }
 
-        public IAnimal? GetAnimalById(string id)
+        public async Task<bool> FeedAnimalAsync(string id, int feedAmount)
         {
-            _animals.TryGetValue(id, out IAnimal? animal);
-            return animal;
+            if(int.TryParse(id, out int animalId))
+            {
+                var animal = await _appDbContext.Animals
+                    .FirstOrDefaultAsync(a => a.Id == animalId);
+                if(animal != null)
+                {
+                    var animalDomain = Converter.MapEntityToDomain(animal);
+                    animalDomain!.TakeFood(feedAmount);
+
+                    animal.Energy = animalDomain.Energy;
+                    await _appDbContext.SaveChangesAsync();
+
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+        }
+
+        public async Task<ICollection> GetAllAnimalsAsync()
+        {
+            var animals = await _appDbContext.Animals
+                .ToListAsync();
+
+            return animals
+                .Select(Converter.MapEntityToDomain)
+                .ToList();
+        }
+
+        public async Task<Animal?> GetAnimalByIdAsync(string id)
+        {
+            if(int.TryParse(id, out int animalId))
+            {
+                var animal = await _appDbContext.Animals
+                    .FirstOrDefaultAsync(a => a.Id == animalId);
+                if (animal != null)
+                {
+                    return Converter.MapEntityToDomain(animal);
+                }
+
+                return null;
+            }
+
+            return null;
         }
     }
 }
