@@ -10,7 +10,8 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 ![image](https://github.com/user-attachments/assets/48539c81-8d53-404a-8de1-e34ef4226ca2)
 
 ## Screenshot from Swagger UI
-![image](https://github.com/user-attachments/assets/c6a752df-b398-4c36-bdea-5ed8a9f1a864)
+![image](https://github.com/user-attachments/assets/f10c2b78-3fd3-4870-9e69-2d1f4345d80e)
+
 
 ## 🌟 Features
 
@@ -27,7 +28,6 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 - **OpenAPI Documentation** with Swagger UI
 - Health check endpoint
 - Structured logging
-- Rate limiting (basic implementation)
 
 ## 📚 API Endpoints
 
