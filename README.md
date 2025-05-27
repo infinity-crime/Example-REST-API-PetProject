@@ -29,6 +29,7 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 - **OpenAPI Documentation** with Swagger UI
 - Health check endpoint
 - Structured logging
+- Using user secrets (secrets.json for connection string)
 
 ## 📚 API Endpoints
 
