@@ -1,4 +1,4 @@
-# 🐾 Animal Shelter REST API 
+# 🐾 Animal REST API (Easy example) 
 
 [![.NET](https://img.shields.io/badge/.NET-9.0-512BD4)](https://dotnet.microsoft.com/)
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0.0-%23512BD4)](https://learn.microsoft.com/en-us/aspnet/core/)
@@ -10,13 +10,14 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 ![image](https://github.com/user-attachments/assets/48539c81-8d53-404a-8de1-e34ef4226ca2)
 
 ## Screenshot from Swagger UI
-![image](https://github.com/user-attachments/assets/f10c2b78-3fd3-4870-9e69-2d1f4345d80e)
+![image](https://github.com/user-attachments/assets/dcc66b88-336f-41bb-9591-7b9a34f2dbde)
+
 
 
 ## 🌟 Features
 
 - **Full CRUD Operations** for animal management
-- In-memory data storage with thread-safe dictionary
+- Storing data in a database using EF Core (LocalDb)
 - **Modern API Practices**:
   - Proper HTTP status codes
   - Problem Details for error responses (RFC 7807)
@@ -33,11 +34,11 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 
 | Method | Endpoint                  | Description                |
 |--------|---------------------------|----------------------------|
-| `GET`  | `/api/animals`            | get a dictionary of all animals            |
+| `GET`  | `/api/animals/all`            | getting all the animals from Db           |
 | `GET`  | `/api/animals/{id}`       | get information about a specific animal        |
-| `POST` | `/api/animals/{id}`            | adding an animal to the dictionary by id             |
-| `PUT`  | `/api/animals/{id}/feed`       | feeding of the animal selected by id      |
-| `DELETE` | `/api/animals/{id}`     | removal of the animal              |
+| `POST` | `/api/animals`            | adding an animal to the database           |
+| `PUT`  | `/api/animals/feed/{id}`       | feeding of the animal selected by id      |
+| `DELETE` | `/api/animals/delete/{id}`     | removal of the animal              |
 
 ## 🛠️ Technical Stack
 
@@ -45,12 +46,15 @@ A REST API implementation for managing animal zoo operations, built using .NET 9
 - **.NET 9** 
 - **ASP.NET Core Minimal APIs** 
 - **Swagger UI** (via `Swashbuckle.AspNetCore`)
+- **Entity Framework Core** (LocalDb)
 
 ### Key Packages
 | Package                       | Version   | Purpose                          |
 |-------------------------------|-----------|----------------------------------|
-| `MinimalApis.Extensions`      | 0.11.0     | Enhanced validation & routing    |
+| `MinimalApis.Extensions`      | 0.11.0    | Enhanced validation & routing    |
 | `Swashbuckle.AspNetCore`      | 8.1.1     | OpenAPI documentation            |
+| `Microsoft.EntityFrameworkCore.SqlServer`      | 9.0.5     | Database            |
+| `Microsoft.EntityFrameworkCore.Design`      | 9.0.5     | Shared design-time components for tools |
 
 ## 📖 Documentation
 
