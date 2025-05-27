@@ -45,7 +45,7 @@ app.UseExceptionHandler(exceptionHandlerApp =>
         await context.Response.WriteAsJsonAsync(new ProblemDetails
         {
             Title = "Invalid animal type",
-            Detail = "Unknown SpeciesType. Valid values: Lion, Elephant, Penguin",
+            Detail = "Unknown Species field. Valid values: Lion, Elephant, Penguin",
             Status = StatusCodes.Status400BadRequest
         });
     });

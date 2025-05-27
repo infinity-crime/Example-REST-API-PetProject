@@ -21,12 +21,14 @@ namespace RestApiAnimals.ServiceLayer
         public async Task<bool> AddAnimalAsync(AnimalDto animal)
         {
             var animalEntity = Converter.MapDtoToEntity(animal);
-            if (animalEntity == null)
-                return false;
+            if (animalEntity != null)
+            {
+                await _appDbContext.AddAsync(animalEntity);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
 
-            await _appDbContext.AddAsync(animalEntity);
-            await _appDbContext.SaveChangesAsync();
-            return true;
+            return false;
         }
 
         public async Task<bool> DeleteAnimalAsync(string id)

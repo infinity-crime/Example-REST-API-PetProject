@@ -14,7 +14,7 @@ namespace RestApiAnimals.Extensions
             services.AddEndpointsApiExplorer();
 
             // Configuring SwaggerGen to ensure it outputs the correct expected JSON to Swagger,
-            // as it does not initially see the mandatory SpeciesType field
+            // as it does not initially see the mandatory Species field
             services.AddSwaggerGen(o =>
             {
                 o.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
